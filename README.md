@@ -1,4 +1,4 @@
-# Collected Item Move to Counter on HUD by DOTween | Movimentação de item coletado para contador no HUD | DOTween
+Collected Item Move to Counter on HUD by DOTween | Movimentação de item coletado para contador no HUD | DOTween
 
 
 1°) Importar a biblioteca DOTween
