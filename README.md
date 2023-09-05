@@ -47,6 +47,8 @@ Collected Item Move to Counter on HUD | Movimentação de item coletado para con
         }
     }
 
+resetar 
+
     public void Reset()
     {
         // Loop para restaurar as posições e rotações iniciais das moedas
@@ -56,6 +58,8 @@ Collected Item Move to Counter on HUD | Movimentação de item coletado para con
             pilhaMoedas.transform.GetChild(i).rotation = inicialRot[i];
         }
     }
+
+recomeçar 
 
     public void Recompensa(int moedasColetaveis)
     {
@@ -88,7 +92,7 @@ Collected Item Move to Counter on HUD | Movimentação de item coletado para con
         }
     }	}
 
-
+contar 
 
     IEnumerator ContadorMoedas(int moedasColetaveis)
     {
