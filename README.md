@@ -19,13 +19,14 @@ Collected Item Move to Counter on HUD | Movimentação de item coletado para con
 
 3°) Criar script para manipular as animações das moedas(gameobjetos)
 	
-using TMPro;
-using UnityEngine;
-using DG.Tweening;
+	using TMPro;
+	using UnityEngine;
+	using DG.Tweening;
 
 
-public class AniCoin: MonoBehaviour
-{
+     public class AniCoin: MonoBehaviour
+     {
+
     [SerializeField] private GameObject pilhaMoedas; // Referência ao objeto contendo as moedas empilhadas
     [SerializeField] private TextMeshProUGUI pontuacao; // Referência ao componente de texto para exibir a pontuação
     [SerializeField] private Vector3[] inicialPos; // Armazena as posições iniciais das moedas
@@ -85,12 +86,11 @@ public class AniCoin: MonoBehaviour
 	    StartCoroutine(routine: ContadorMoedas(moedasColetaveis: 7));
 		
         }
-    }
-}
+    }	}
 
 
 
-IEnumerator ContadorMoedas(int moedasColetaveis)
+    IEnumerator ContadorMoedas(int moedasColetaveis)
     {
         yield return new WaitForSecondsRealtime(time: 1f);
 
