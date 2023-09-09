@@ -12,3 +12,4 @@
 	
 	* Criar 1 gameobjeto vazio > adicionar componente img > (PilhaMoedas) Anexar sprite da moeda epresetando as moedas > duplicar 6 
 	* Nas moedas duplicas, zerar a scala do x, y e z e gameObject (PilhaMoedas) que esta agrupando as moeda, desativar esse componente 
+ 
