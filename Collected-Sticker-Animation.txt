@@ -1,48 +1,62 @@
 Movendo o adesivo coletado do HUD para o MENU por DOTween
 
-1° Adicionar um prefab cotendo o componente Image para substituir pelo sprite encontrado
+1° Criar um Carvas contendo um componente Image para alterar o Sprite, adicionando um script para manipular a animação de movimento.
 
-2° Adcionar um script para maniuplar a animação de movimento ( public class StickerAnimation : MonoBehaviour )
+2° Adicionar um GameObject Temporário exatamente na posição inicial onde desejo obter a coordenada do Target.
 
 3° Definir a duração da animação de movimento, com um valor padrão de 2 segundos.
 
-    public float duration = 2.0f;
+    [SerializeField] private float duration = 2.0f;
 
 
 4° Declarar variável e armazenar a posição de destino para onde o objeto se moverá. 
+  
+    [SerializeField] private Transform target;
+    [SerializeField] private GameObject sticker;
 
-   //Substituir referência ao objeto de destino para onde o objeto atual se moverá. Procurando o GameObject usando GameObject.Find().
-   private Vector2 targetPosition = new Vector2 (72, -183.4f);    
 
+5° Chamar o GameObject desativado ao ser inicializado o jogo. 
 
-5° Chamar o GameObject é inicializado. Em seguida, chama o método PlayStickerAnimation()
-
-    public void Start()
+    public void Awake()
     {
-        PlayStickerAnimation();
+        sticker.gameObject.SetActive(false);
     }
 
+5° testando o método de animação de movimento quando a tecla Espaço for pressionada.
 
-6° O método PlayStickerAnimation() é onde a animação é definida. Ele procura um GameObject chamado "Canvas-Menu/Panel/UserInfo" usando GameObject.Find() para onde o objeto atual se moverá.
+    public void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            PlayStickerAnimation();
+        }
+    }
+
+6° Método chamado para reproduzir a animação de movimento ao coletar o adesivo.
 
     public void PlayStickerAnimation()
     {
-        GameObject userInfo = GameObject.Find("Canvas-Menu/Panel/UserInfo");
+        sticker.gameObject.SetActive(true);
 
-        transform.DOMove(userInfo.transform.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
+        sticker.transform.GetComponent<RectTransform>().DOAnchorPos(endValue: new Vector2(x: 7f, y: 27f), duration: 1f).SetDelay(0.5f).SetEase(Ease.InBack);
+        sticker.transform.DOMove(target.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
         {
-            transform.gameObject.SetActive(false);
-        });        
+            sticker.gameObject.SetActive(false);
+
+            sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,0);
+        });
+
     }
 
+A função DOMove() da biblioteca DG.Tweening é usada para criar essa animação.
 
-   //A função DOMove() da biblioteca DG.Tweening é usada para criar essa animação.
-   //SetEase(Ease.OutBack): Define a curva de interpolação para a animação, tornando o movimento mais natural.
-   //OnComplete(() => { transform.gameObject.SetActive(false); }): Esta parte do código é chamada quando a animação é concluída. Ela desativa o objeto atual, tornando-o invisível.
+SetEase(Ease.OutBack): Define a curva de interpolação para a animação, tornando o movimento mais natural.
+
+OnComplete(() => { transform.gameObject.SetActive(false); }): Esta parte do código é chamada quando a animação é concluída. Ela desativa o objeto atual, tornando-o invisível.
 
 
 
-Claro, vou explicar o código do Unity C# linha por linha:
+Vou explicar o código do Unity C# linha por linha:
 
 ```csharp
 using DG.Tweening;
