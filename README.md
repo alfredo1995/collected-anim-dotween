@@ -1,15 +1,15 @@
 # Collected Item Move to Counter on HUD by DOTween 
 
 
-1°) Importar a biblioteca DOTween
+1°) Import the DOTween library
 
-2°) Preparar o cenario
+2°) Prepare the scene
 
-	* Criar um carvas
-	* Criar 1 gameobjeto vazio > adicionar componente img > (FundoPontuacao) representado o plano de fundo da pontuacao
-	* Criar 1 gameobjeto vazio > adicionar componente img > (Pontuacao) Anexar sprite da moeda (iconePontuacao) represetando o icone da pontuação > add component texto tambem
-	* Criar 1 gameobjeto vazio > adicionar componente img > (BotaoPontuacao) Adicionar button > representado o botao > add component texto tambem	
-	
-	* Criar 1 gameobjeto vazio > adicionar componente img > (PilhaMoedas) Anexar sprite da moeda epresetando as moedas > duplicar 6 
-	* Nas moedas duplicas, zerar a scala do x, y e z e gameObject (PilhaMoedas) que esta agrupando as moeda, desativar esse componente 
+	* Create a carvas
+	* Create 1 empty gameobject > add img component > (FondoScore) representing the background of the score
+	* Create 1 empty game object > add img component > (Score) Attach coin sprite (Score icon) representing the score icon > add text component as well
+	* Create 1 empty gameobject > add img component > (BotaoPontuacao) Add button > represented by the button > add text component as well
+
+	* Create 1 empty gameobject > add img component > (StackCoins) Attach coin sprite and present the coins > duplicate 6
+	* In duplicate coins, reset the scale of x, y and z and gameObject (PilhaCoedas) that is grouping the coins, disable this component
  
