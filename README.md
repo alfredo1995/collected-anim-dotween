@@ -7,7 +7,7 @@
 
 	* Create a carvas
 	* Create 1 empty gameobject > add img component > (FondoScore) representing the background of the score
-	* Create 1 empty game object > add img component > (Score) Attach coin sprite (Score icon) representing the score icon > add text component as well
+	* Create 1 empty gameobject > add img component > (Score) Attach coin sprite (Score icon) representing the score icon > add text component as well
 	* Create 1 empty gameobject > add img component > (BotaoPontuacao) Add button > represented by the button > add text component as well
 
 	* Create 1 empty gameobject > add img component > (StackCoins) Attach coin sprite and present the coins > duplicate 6
