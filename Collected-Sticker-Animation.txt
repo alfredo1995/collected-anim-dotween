@@ -119,3 +119,56 @@ public class StickerAnimation : MonoBehaviour
 ```
 
 Espero que isso ajude a entender o código! Ele parece ser um script que controla a animação de um adesivo ("sticker") em Unity usando a biblioteca DOTween. A animação move o adesivo para uma posição alvo ("target") e aplica efeitos de easing para dar à animação uma sensação de suavidade.
+
+
+
+
+
+using DG.Tweening;
+using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Scripts.Scriptable_Object;
+using Scripts.Managers;
+using UnityEngine.UI;
+
+public class StickerAnimation : MonoBehaviour
+{
+    [SerializeField] private float duration = 2.0f;
+
+    [SerializeField] private Transform target;
+    [SerializeField] private GameObject sticker;
+
+    public void Awake()
+    {
+        sticker.gameObject.SetActive(false);
+    }
+
+    public void PlayStickerAnimation(StickerSO stickerData)
+    {
+        var stickerImg = sticker.GetComponent<Image>();
+
+        if(stickerImg != null)
+        {
+            stickerImg.sprite = stickerData.stickerAsset;
+        }
+
+        sticker.gameObject.SetActive(true);
+
+        //sticker.transform.GetComponent<RectTransform>().DOAnchorPos(endValue: new Vector2(x: 7f, y: 27f), duration: 1f).SetDelay(0.5f).SetEase(Ease.InBack);
+        sticker.transform.DOMove(target.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
+        {
+            stickerImg.sprite = null;
+
+            sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,0);
+
+            sticker.gameObject.SetActive(false);
+
+        });
+
+
+    }
+
+}
+
