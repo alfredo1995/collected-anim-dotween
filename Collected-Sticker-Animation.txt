@@ -120,55 +120,59 @@ public class StickerAnimation : MonoBehaviour
 
 Espero que isso ajude a entender o código! Ele parece ser um script que controla a animação de um adesivo ("sticker") em Unity usando a biblioteca DOTween. A animação move o adesivo para uma posição alvo ("target") e aplica efeitos de easing para dar à animação uma sensação de suavidade.
 
+// Importando as bibliotecas necessárias
+using DG.Tweening;  // Biblioteca para animações tweening
+using UnityEngine;    // Biblioteca principal do Unity
+using UnityEngine.UI; // Biblioteca para trabalhar com UI no Unity
 
-
-
-
-using DG.Tweening;
-using TMPro;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Scripts.Scriptable_Object;
-using Scripts.Managers;
-using UnityEngine.UI;
-
+// Definindo a classe StickerAnimation que herda de MonoBehaviour
 public class StickerAnimation : MonoBehaviour
 {
+    // Variável para armazenar a duração da animação (pode ser ajustada no Inspector no Unity)
     [SerializeField] private float duration = 2.0f;
 
+    // Referência ao objeto alvo da animação (pode ser ajustado no Inspector no Unity)
     [SerializeField] private Transform target;
+
+    // Referência ao objeto de imagem que representa o adesivo
     [SerializeField] private GameObject sticker;
 
+    // Método chamado quando o objeto é inicializado
     public void Awake()
     {
+        // Desativa o objeto do adesivo quando o script é iniciado
         sticker.gameObject.SetActive(false);
     }
 
+    // Método para iniciar a animação do adesivo
     public void PlayStickerAnimation(StickerSO stickerData)
     {
+        // Obtém a referência à componente de imagem do adesivo
         var stickerImg = sticker.GetComponent<Image>();
 
+        // Verifica se a referência não é nula
         if(stickerImg != null)
         {
+            // Define a imagem do adesivo com base nos dados fornecidos
             stickerImg.sprite = stickerData.stickerAsset;
         }
 
+        // Ativa o objeto do adesivo para torná-lo visível
         sticker.gameObject.SetActive(true);
 
-        //sticker.transform.GetComponent<RectTransform>().DOAnchorPos(endValue: new Vector2(x: 7f, y: 27f), duration: 1f).SetDelay(0.5f).SetEase(Ease.InBack);
+        // Inicia a animação de movimento do adesivo em direção ao alvo
         sticker.transform.DOMove(target.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
         {
+            // Ao completar a animação:
+            
+            // Limpa a imagem do adesivo
             stickerImg.sprite = null;
 
-            sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,0);
+            // Reseta a posição do adesivo para (0,0) no RectTransform
+            sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
 
+            // Desativa o objeto do adesivo para ocultá-lo
             sticker.gameObject.SetActive(false);
-
         });
-
-
     }
-
 }
-
