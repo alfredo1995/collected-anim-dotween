@@ -14,3 +14,4 @@
 	* In duplicate coins, reset the scale of x, y and z and gameObject (PilhaCoedas) that is grouping the coins, disable this component 
  
  
+ 
