@@ -22,6 +22,7 @@ Movendo o adesivo coletado do HUD para o MENU por DOTween
         sticker.gameObject.SetActive(false);
     }
 
+
 5° testando o método de animação de movimento quando a tecla Espaço for pressionada.
 
     public void Update()
@@ -31,6 +32,7 @@ Movendo o adesivo coletado do HUD para o MENU por DOTween
             PlayStickerAnimation();
         }
     }
+
 
 6° Método chamado para reproduzir a animação de movimento ao coletar o adesivo.
 
@@ -48,77 +50,63 @@ Movendo o adesivo coletado do HUD para o MENU por DOTween
 
     }
 
-A função DOMove() da biblioteca DG.Tweening é usada para criar essa animação.
 
-SetEase(Ease.OutBack): Define a curva de interpolação para a animação, tornando o movimento mais natural.
-
-OnComplete(() => { transform.gameObject.SetActive(false); }): Esta parte do código é chamada quando a animação é concluída. Ela desativa o objeto atual, tornando-o invisível.
-
+// A função DOMove() da biblioteca DG.Tweening é usada para criar essa animação.
+// SetEase(Ease.OutBack): Define a curva de interpolação para a animação, tornando o movimento mais natural.
+// OnComplete(() => { transform.gameObject.SetActive(false); }): Esta parte do código é chamada quando a animação é concluída. Ela desativa o objeto atual, tornando-o invisível.
 
 
-Vou explicar o código do Unity C# linha por linha:
 
-```csharp
-using DG.Tweening;
-using TMPro;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-public class StickerAnimation : MonoBehaviour
+
+
+1° Validado que o metodo PlayAnimation está funcionando, testando a chamada atraves do Input Space
+2° Alterar a chamada pelo Input por uma assinatura no metodo PlayAnimation 
+
+// A assinatura é como a identidade de um método, dizendo quem ele é e o que ele faz. 
+
+public void PlayStickerAnimation(StickerSO stickerData)
 {
-    // Define uma variável pública para a duração da animação.
-    public float duration = 2.0f;
+	//Codigo da animação
+}
 
-    // Define variáveis serializadas que podem ser ajustadas no Editor do Unity.
-    [SerializeField] private Transform target;       // Transform da posição de destino da animação.
-    [SerializeField] private GameObject sticker;     // Referência ao objeto que será animado.
+// Temos um método chamado PlayStickerAnimation que recebe um parametro (stickerData) do tipo (StickerSO) e retorna uma animação. 
+// Isso permite que o método saiba qual sprite usar para o adesivo, tornando-o mais flexível e reutilizável.
+// Isso significa que sempre que o método for chamado, é necessário fornecer um objeto StickerSO que contém as informações específicas do adesivo a ser animado.
 
-    // Este método é chamado quando o objeto é inicializado.
-    public void Awake()
+[SerializeField] private GameObject sticker;
+
+public void PlayStickerAnimation(StickerSO stickerData)
     {
-        // Desativa o objeto "sticker" quando o jogo começa.
-        sticker.gameObject.SetActive(false);
-    }
+        var stickerImg = sticker.GetComponent<Image>();
 
-    // Este método é chamado a cada quadro de atualização do jogo.
-    public void Update()
-    {
-        // Verifica se a tecla Espaço foi pressionada.
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            // Chama o método para reproduzir a animação do adesivo.
-            PlayStickerAnimation();
-        }
-    }
+        stickerImg.sprite = stickerData.stickerAsset;
 
-    // Este método é chamado para reproduzir a animação do adesivo.
-    public void PlayStickerAnimation()
-    {
-        // Ativa o objeto "sticker" para que ele seja visível.
         sticker.gameObject.SetActive(true);
 
-        // Anima a posição do objeto "sticker" usando o DOTween.
-        sticker.transform.GetComponent<RectTransform>().DOAnchorPos(new Vector2(7f, 27f), 1f) // Define a posição final.
-            .SetDelay(0.5f)           // Adia o início da animação em 0.5 segundos.
-            .SetEase(Ease.InBack);    // Aplica uma interpolação de entrada para a animação.
+        sticker.transform.DOMove(target.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
+        {
+            sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,0);
 
-        // Anima a posição do objeto "sticker" para a posição do "target" usando o DOTween.
-        sticker.transform.DOMove(target.position, duration) // Define a posição final e a duração da animação.
-            .SetEase(Ease.OutBack)   // Aplica uma interpolação de saída para a animação.
-            .OnComplete(() =>        // Define um callback que é chamado quando a animação está completa.
-            {
-                // Desativa o objeto "sticker" novamente.
-                sticker.gameObject.SetActive(false);
+            sticker.gameObject.SetActive(false);
 
-                // Define a posição da âncora do RectTransform do "sticker" de volta para (0, 0).
-                sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            });
-    }
-}
-```
+        });
 
-Espero que isso ajude a entender o código! Ele parece ser um script que controla a animação de um adesivo ("sticker") em Unity usando a biblioteca DOTween. A animação move o adesivo para uma posição alvo ("target") e aplica efeitos de easing para dar à animação uma sensação de suavidade.
+
+3° Adicionar script GameEventListener no GameOject (Sticker-Animation) para ouvir eventos específicos do jogo (GameEvent) e, quando esses eventos ocorrem, desencadeia uma série de ações associadas a esses eventos.
+
+//OnUnlockSticker: É um evento que leva um StickerSO como parâmetro
+//O propósito desse evento é permitir que outros scripts ou partes do código do jogo se inscrevam (ou "escutem") esse evento e executem ações específicas quando um adesivo for desbloqueado.
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Script que controla a animação de um adesivo ("sticker") em Unity usando a biblioteca DOTween. A animação move o adesivo para uma posição alvo ("target") e aplica efeitos de easing para dar à animação uma sensação de suavidade.
 
 // Importando as bibliotecas necessárias
 using DG.Tweening;  // Biblioteca para animações tweening
