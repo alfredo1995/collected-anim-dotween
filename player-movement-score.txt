@@ -1,0 +1,75 @@
+player movement score
+
+1° Prepare the scene with prefabs and assemble the scoring panel
+
+	* Create a platform    > 2D Object > Sprite > Square 
+	* Create a character   > 2D Object > Sprite > Cube
+        * Create a collectible > 2D Object > Sprit  > Square => anexar sprite "icon", um circle colider, marcando is trigger
+
+	* Adicionar uma Tag "Coin" nesse sprite coletavel, salvar como prefab e duplicar na cena para serem coletados
+
+	* Adicionar uma Carnvas > Game Object "Painel" > Add > UI Text Mesh Pro > Contador e > Game Object > sprite "Icon"
+
+
+2° Create Script to manipulate character movement and jumping
+
+	public class Player : MonoBehaviour
+	{
+  	  public float moveSpeed = 5f;
+  	  public float jumpForce = 10f;
+
+   	 private Rigidbody2D rb;
+   	 private bool isGrounded;
+
+   	 private void Awake()
+   	 {
+   	     rb = GetComponent<Rigidbody2D>();
+   	 }
+
+   	 private void Update()
+   	 {
+    	    // Verifica se o personagem está no chão
+     	   isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
+
+      	  // Movimentação horizontal
+     	   float horizontalInput = Input.GetAxis("Horizontal");
+      	  rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+
+       	 // Pulo
+       	 if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+       	 {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+       	 }}}
+
+
+
+3) Verificar se o colisor q acionou esse método tem uma tag "Coin" colidindo com ele em um ambiente 2D     
+	
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+
+4°) Manipular Contador da Pountuação na UI verificando a quantidade de moedas coletadas pelo player
+    
+    using UnityEngine.UI;
+
+    private int coins;  
+    public TextMeshProUGUI coinsCounter;   
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            coins++;
+            coinsCounter.text = coins.ToString();
+            Destroy(other.gameObject);
+        }
+    }
+
+	
+   *Referenciar o carva de texto no campo counterCoins na UI
