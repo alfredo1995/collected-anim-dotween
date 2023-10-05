@@ -173,23 +173,23 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class AlbumCompleteNotification : MonoBehaviour
+public class CompleteNotification : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI albumNotificationText;
-    [SerializeField] private GameObject sticker;
+    [SerializeField] private TextMeshProUGUI notificationText;
+    [SerializeField] private GameObject imagem;
     [SerializeField] private float delayTime = 3;
 
     private void Awake()
     {
-        sticker.SetActive(false);
-        albumNotificationText.gameObject.SetActive(false);
+        imagem.SetActive(false);
+        notificationText.gameObject.SetActive(false);
     }
 
-    public void ShowCompletedAlbum(AlbumSO album)
+    public void ShowComplete(AlbumSO album)
     {
-        albumNotificationText.text = "" + album.AlbumName;
-        sticker.SetActive(true);
-        albumNotificationText.gameObject.SetActive(true);
+        notificationText.text = "" + album.AlbumName;
+        imagem.SetActive(true);
+        notificationText.gameObject.SetActive(true);
         StartCoroutine(DisableAfterTime());
     }
 
@@ -197,7 +197,7 @@ public class AlbumCompleteNotification : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         sticker.SetActive(false);
-        albumNotificationText.gameObject.SetActive(false);
+        notificationText.gameObject.SetActive(false);
     }
 }
 
