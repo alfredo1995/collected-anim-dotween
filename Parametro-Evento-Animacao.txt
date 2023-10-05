@@ -164,3 +164,40 @@ public class StickerAnimation : MonoBehaviour
         });
     }
 }
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+using System.Collections;
+using TMPro;
+using UnityEngine;
+
+public class AlbumCompleteNotification : MonoBehaviour
+{
+    [SerializeField] private TextMeshProUGUI albumNotificationText;
+    [SerializeField] private GameObject sticker;
+    [SerializeField] private float delayTime = 3;
+
+    private void Awake()
+    {
+        sticker.SetActive(false);
+        albumNotificationText.gameObject.SetActive(false);
+    }
+
+    public void ShowCompletedAlbum(AlbumSO album)
+    {
+        albumNotificationText.text = "" + album.AlbumName;
+        sticker.SetActive(true);
+        albumNotificationText.gameObject.SetActive(true);
+        StartCoroutine(DisableAfterTime());
+    }
+
+    private IEnumerator DisableAfterTime()
+    {
+        yield return new WaitForSeconds(delayTime);
+        sticker.SetActive(false);
+        albumNotificationText.gameObject.SetActive(false);
+    }
+}
+
