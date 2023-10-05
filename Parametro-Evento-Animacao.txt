@@ -12,14 +12,14 @@ Movendo o adesivo coletado do HUD para o MENU por DOTween
 4° Declarar variável e armazenar a posição de destino para onde o objeto se moverá. 
   
     [SerializeField] private Transform target;
-    [SerializeField] private GameObject sticker;
+    [SerializeField] private GameObject animation;
 
 
 5° Chamar o GameObject desativado ao ser inicializado o jogo. 
 
     public void Awake()
     {
-        sticker.gameObject.SetActive(false);
+        animation.gameObject.SetActive(false);
     }
 
 
@@ -29,23 +29,23 @@ Movendo o adesivo coletado do HUD para o MENU por DOTween
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            PlayStickerAnimation();
+            PlayAnimation();
         }
     }
 
 
 6° Método chamado para reproduzir a animação de movimento ao coletar o adesivo.
 
-    public void PlayStickerAnimation()
+    public void PlayAnimation()
     {
-        sticker.gameObject.SetActive(true);
+        animation.gameObject.SetActive(true);
 
-        sticker.transform.GetComponent<RectTransform>().DOAnchorPos(endValue: new Vector2(x: 7f, y: 27f), duration: 1f).SetDelay(0.5f).SetEase(Ease.InBack);
-        sticker.transform.DOMove(target.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
+        animation.transform.GetComponent<RectTransform>().DOAnchorPos(endValue: new Vector2(x: 7f, y: 27f), duration: 1f).SetDelay(0.5f).SetEase(Ease.InBack);
+        animation.transform.DOMove(target.position, duration).SetEase(Ease.OutBack).OnComplete(() =>
         {
-            sticker.gameObject.SetActive(false);
+            animation.gameObject.SetActive(false);
 
-            sticker.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,0);
+            animation.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,0);
         });
 
     }
