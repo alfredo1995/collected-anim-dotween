@@ -201,3 +201,62 @@ public class CompleteNotification : MonoBehaviour
     }
 }
 
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+using DG.Tweening;
+using TMPro;
+using UnityEngine;
+
+public class AlbumCompleteNotification : MonoBehaviour
+{
+    // Declarando variáveis para referenciar objetos na Unity.
+    [SerializeField] private TextMeshProUGUI notificationText;
+    [SerializeField] private GameObject notificationContent;
+    [SerializeField] private GameObject notificationAnimation;
+    [SerializeField] private float scaleDuration = 0.5f;
+    [SerializeField] private float delayBeforeDisable = 3f;
+
+    // Awake é chamado quando o script é inicializado.
+    private void Awake()
+    {
+        // Desativa os objetos relacionados à notificação do álbum.
+        SetNotificationObjectsActive(false);
+    }
+
+    // Método público chamado para mostrar a notificação de álbum completo.
+    public void ShowCompleteNotification(AlbumSO album)
+    {
+        // Define o texto da notificação como o nome do álbum recebido como parâmetro.
+        notificationText.text = album.AlbumName;
+
+        // Configura a escala inicial da animação como zero.
+        notificationAnimation.transform.localScale = Vector3.zero;
+
+        // Inicia uma animação de escala usando a biblioteca DOTween.
+        notificationAnimation.transform.DOScale(Vector3.one, scaleDuration)
+            // Define ações a serem executadas no início e no final da animação.
+            .OnStart(() => SetNotificationObjectsActive(true))
+            .OnComplete(() => DisableObjectsAfterDelay());
+    }
+
+    // Método privado para ativar ou desativar os objetos de notificação.
+    private void SetNotificationObjectsActive(bool active)
+    {
+        notificationContent.SetActive(active);
+    }
+
+    // Método privado para desativar os objetos após um atraso.
+    private void DisableObjectsAfterDelay()
+    {
+        // Cria um atraso usando DOTween e, após o atraso, inicia outra animação de escala para esconder a notificação.
+        DOVirtual.DelayedCall(delayBeforeDisable, () =>
+        {
+            notificationAnimation.transform.DOScale(Vector3.zero, scaleDuration)
+                .OnComplete(() => SetNotificationObjectsActive(false));
+        });
+    }
+}
+
+
