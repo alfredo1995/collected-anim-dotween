@@ -20,18 +20,18 @@
 
 3°) Criar script para manipular as animações das moedas(gameobjetos)
 	
-using TMPro;
-using UnityEngine;
-using DG.Tweening;
+	using TMPro;
+	using UnityEngine;
+	using DG.Tweening;
 
 
-public class AniCoin: MonoBehaviour
-{
-    [SerializeField] private GameObject pilhaMoedas; // Referência ao objeto contendo as moedas empilhadas
-    [SerializeField] private TextMeshProUGUI pontuacao; // Referência ao componente de texto para exibir a pontuação
-    [SerializeField] private Vector3[] inicialPos; // Armazena as posições iniciais das moedas
-    [SerializeField] private Quaternion[] inicialRot; // Armazena as rotações iniciais das moedas
-    [SerializeField] private int moedasColetaveis; // Quantidade de moedas coletáveis
+	public class AniCoin: MonoBehaviour
+	{
+  	  [SerializeField] private GameObject pilhaMoedas; // Referência ao objeto contendo as moedas empilhadas
+  	  [SerializeField] private TextMeshProUGUI pontuacao; // Referência ao componente de texto para exibir a pontuação
+	    [SerializeField] private Vector3[] inicialPos; // Armazena as posições iniciais das moedas
+  	  [SerializeField] private Quaternion[] inicialRot; // Armazena as rotações iniciais das moedas
+   	 [SerializeField] private int moedasColetaveis; // Quantidade de moedas coletáveis
 
     public void Start()
     {
@@ -85,29 +85,26 @@ public class AniCoin: MonoBehaviour
 	
 	    StartCoroutine(routine: ContadorMoedas(moedasColetaveis: 7));
 		
-        }
-    }
-}
+        }    }   }
 
 
 
-IEnumerator ContadorMoedas(int moedasColetaveis)
-    {
-        yield return new WaitForSecondsRealtime(time: 1f);
+	          IEnumerator ContadorMoedas(int moedasColetaveis)
+   	         {
+       	         yield return new WaitForSecondsRealtime(time: 1f);
 
-        var timer = 0f;
+       	         var timer = 0f;
 
-        for (int i = 0; i < moedasColetaveis; i++)
-        {
-            PlayerPrefs.SetInt("moeda", PlayerPrefs.GetInt(key: "moeda") + moedasColetaveis);
+        	 for (int i = 0; i < moedasColetaveis; i++)
+      	         {
+          	 PlayerPrefs.SetInt("moeda", PlayerPrefs.GetInt(key: "moeda") + moedasColetaveis);
 
-            pontuacao.text = PlayerPrefs.GetInt(key: "moeda").ToString();
+       	         pontuacao.text = PlayerPrefs.GetInt(key: "moeda").ToString();
 
-            timer += 0.1f;
+          	 timer += 0.1f;
 
-            yield return new WaitForSecondsRealtime(timer);
-        }
-    }
+         	 yield return new WaitForSecondsRealtime(timer);
+                } }
  
  
  
