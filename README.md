@@ -1,11 +1,11 @@
 # Collected Item Move to Counter on HUD by DOTween 
  
 
-0° Import the DOTween library
+Import the DOTween library
 
  	 https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
 
-1° Prepare the scene
+Prepare the scene
 
 	* Create a carvas
 	* Create 1 empty gameobject > add img component > (FondoScore) representing the background of the score
@@ -15,12 +15,12 @@
 	* Create 1 empty gameobject > add img component > (StackCoins) Attach coin sprite and present the coins > duplicate 
 	* In duplicate coins, reset the scale of x, y and z and gameObject (PilhaCoedas) that is grouping the coins, disable this component 
 
-2° Collected Item Move to Counter on HUD | Movimentação de item coletado para contador no HUD | DOTween
+Collected Item Move to Counter on HUD | Movimentação de item coletado para contador no HUD | DOTween
 
 	* Nas moedas duplicas, zerar a scala do x, y e z e gameObject (PilhaMoedas) que esta agrupando as moeda, desativar esse componente 
 
 
-3° Criar script para manipular as animações das moedas(gameobjetos)
+Criar script para manipular as animações das moedas(gameobjetos)
 	
 	using TMPro;
 	using UnityEngine;
