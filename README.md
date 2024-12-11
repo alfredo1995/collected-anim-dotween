@@ -1,7 +1,7 @@
 # Collected Item Move to Counter on HUD by DOTween 
  
 
-Import the DOTween library
+Import the DOTween library 
 
  	 https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
 
